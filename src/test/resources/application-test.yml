@@ -2,3 +2,10 @@ datasources:
   default:
     url: jdbc:tc:postgresql:12:///postgres?TC_INITSCRIPT=./db/init_db.sql
     driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+jpa:
+  default:
+    entity-scan:
+      - mx.com.parrot.domain
+    properties:
+      hibernate:
+        show_sql: true
