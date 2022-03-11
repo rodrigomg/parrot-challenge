@@ -7,7 +7,7 @@ import groovy.transform.ToString
 
 @Entity
 @Table(name = "users", schema = "parrot")
-class Users implements Serializable {
+class User implements Serializable {
 
   static final long serialVersionUID = 1L
 
