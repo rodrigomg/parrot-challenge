@@ -1,4 +1,4 @@
 datasources:
   default:
-    url: jdbc:tc:postgresql:12:///postgres=./db/init_db.sql
+    url: jdbc:tc:postgresql:12:///postgres?TC_INITSCRIPT=./db/init_db.sql
     driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
