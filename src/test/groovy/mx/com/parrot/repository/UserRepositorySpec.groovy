@@ -11,7 +11,7 @@ import spock.lang.Stepwise
 
 
 @Slf4j
-@MicronautTest()
+@MicronautTest( rollback = false)
 @Stepwise
 class UserRepositorySpec extends Specification{
 
@@ -26,7 +26,7 @@ class UserRepositorySpec extends Specification{
     user = new User()
   }
 
-  void "Should create a new User"() {
+  void "Should create a new user"() {
     when:
     user.email = "rockdrigo.mtz@gmail.com"
     user.firstName = "Rodrigo"
@@ -40,5 +40,43 @@ class UserRepositorySpec extends Specification{
 
   }
 
+  void "Should get one user"() {
+    when:
+    User userFromRepo = userRepository.findById(user.id).get()
+
+    then:
+    log.info("User: ${userFromRepo.toString()}")
+    user.id
+    user.email == "rockdrigo.mtz@gmail.com"
+  }
+
+  void "Should get all users"() {
+    when:
+    List<User> users = userRepository.findAll(Pageable.from(0,10)).getContent()
+
+    then:
+    log.info("Users: ${users.dump()}")
+    user.id
+    users.size() == 1
+  }
+
+  void "Should update an user"() {
+    when:
+    user.firstName = "Roger"
+    user = userRepository.update(user)
+
+    then:
+    log.info("User: ${user.toString()}")
+    user.id
+    user.firstName == "Roger"
+  }
+
+  void "Should delete an user"() {
+    when:
+    userRepository.deleteById(user.id)
+
+    then:
+    !userRepository.findById(user.id).isPresent()
+  }
 
 }
