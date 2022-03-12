@@ -14,7 +14,7 @@ class Product implements Serializable{
   Long id
 
   @Column(name = "product")
-  String product
+  String name
 
   @Column(name = "price")
   Float price
@@ -27,7 +27,7 @@ class Product implements Serializable{
     """
     Product{
       id=${id}
-      product=${product}
+      product=${name}
       price=${price}
       stock=${stock}
     }
