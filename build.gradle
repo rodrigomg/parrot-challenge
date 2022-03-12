@@ -18,6 +18,8 @@ dependencies {
   implementation("io.micronaut.sql:micronaut-jdbc-hikari")
   implementation("jakarta.annotation:jakarta.annotation-api")
   implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+  implementation("org.zalando:problem:0.24.0")
+  implementation("org.zalando:jackson-datatype-problem:0.24.0")
   compileOnly("io.micronaut:micronaut-http-validation")
   runtimeOnly("ch.qos.logback:logback-classic")
   runtimeOnly("org.postgresql:postgresql")
