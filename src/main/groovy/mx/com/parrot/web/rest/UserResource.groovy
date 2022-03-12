@@ -75,4 +75,29 @@ class UserResource{
         HeaderUtil.createEntityUpdateAlert(headers, applicationName, true, ENTITY_NAME, userDTO.id.toString()))
   }
 
+  /**
+   * {@code GET  /users/:id} : get the "id" user.
+   *
+   * @param id the id of the userDTO to retrieve.
+   * @return the {@link HttpResponse} with status {@code 200 (OK)} and with body the userDTO, or with status {@code 404 (Not Found)}.
+   */
+  @Get("/users/{id}")
+  Optional<UserDTO> getUser(@PathVariable Long id) {
+    log.debug("REST request to get User : ${id}")
+    userService.findOne(id)
+  }
+
+  /**
+   * {@code DELETE  /users/:id} : delete the "id" user.
+   *
+   * @param id the id of the userDTO to delete.
+   * @return the {@link HttpResponse} with status {@code 204 (NO_CONTENT)}.
+   */
+  @Delete("/users/{id}")
+  HttpResponse deleteUser(@PathVariable Long id) {
+    log.debug("REST request to delete User : ${id}")
+    userService.delete(id)
+    HttpResponse.noContent().headers(headers -> HeaderUtil.createEntityDeletionAlert(headers, applicationName, true, ENTITY_NAME, id.toString()))
+  }
+
 }
