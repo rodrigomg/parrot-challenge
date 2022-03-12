@@ -2,12 +2,10 @@ package mx.com.parrot.domain
 
 import javax.persistence.*
 import java.io.Serializable
-import java.util.Set
-import groovy.transform.ToString
 
 @Entity
 @Table(name = "users", schema = "parrot")
-class User implements Serializable {
+class User implements Serializable{
 
   static final long serialVersionUID = 1L
 
@@ -27,7 +25,7 @@ class User implements Serializable {
   @Override
   String toString() {
     """
-    Users{
+    User{
       id=${id}
       email=${email}
       firstName=${firstName}
