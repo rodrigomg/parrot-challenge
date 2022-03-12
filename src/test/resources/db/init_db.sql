@@ -1,7 +1,3 @@
-/*
-USER & SCHEMA
- */
-
 CREATE ROLE parrot WITH
 LOGIN
 SUPERUSER
@@ -11,17 +7,16 @@ CREATEROLE
 REPLICATION
 PASSWORD 'parrot';
 
-
 CREATE SCHEMA parrot
 AUTHORIZATION parrot;
-
-/*
-PARROT SCHEMA
- */
 
 SET SCHEMA 'parrot';
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS order_details;
+
 
 CREATE TABLE users (
   id serial,
@@ -32,4 +27,38 @@ CREATE TABLE users (
   UNIQUE(email)
 );
 ALTER SEQUENCE users_id_seq restart with 7;
-CREATE INDEX idx_users_name ON users (email);
+CREATE INDEX idx_email ON users (email);
+
+CREATE TABLE orders (
+  id serial,
+  user_id int,
+  CONSTRAINT pk_orders PRIMARY KEY (id),
+  CONSTRAINT fk_user
+    FOREIGN KEY(user_id)
+      REFERENCES users(id)
+);
+ALTER SEQUENCE orders_id_seq restart with 7;
+
+CREATE TABLE products (
+  id serial,
+  product character varying(80),
+  price decimal(10,2),
+  stock int,
+  CONSTRAINT pk_products PRIMARY KEY (id),
+  UNIQUE(product)
+);
+ALTER SEQUENCE products_id_seq restart with 7;
+CREATE INDEX idx_product ON products (product);
+
+CREATE TABLE order_details (
+  id serial,
+  order_id int,
+  product_id int,
+  CONSTRAINT pk_order_details PRIMARY KEY (id),
+  CONSTRAINT fk_order
+    FOREIGN KEY(order_id)
+      REFERENCES orders(id),
+  CONSTRAINT fk_product
+    FOREIGN KEY(product_id)
+      REFERENCES products(id)
+);
