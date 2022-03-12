@@ -76,6 +76,20 @@ class UserResource{
   }
 
   /**
+   * {@code GET  /users} : get all the users.
+   *
+   * @param pageable the pagination information.
+   * @return the {@link HttpResponse} with status {@code 200 (OK)} and the list of users in body.
+   */
+  @Get("/users")
+  HttpResponse<List<UserDTO>> getAllUsers(HttpRequest request, Pageable pageable) {
+    log.debug("REST request to get a page of Users")
+    Page<UserDTO> page = userService.findAll(pageable)
+    HttpResponse.ok(page.getContent()).headers(headers ->
+        PaginationUtil.generatePaginationHttpHeaders(headers, UriBuilder.of(request.getPath()), page))
+  }
+
+  /**
    * {@code GET  /users/:id} : get the "id" user.
    *
    * @param id the id of the userDTO to retrieve.
