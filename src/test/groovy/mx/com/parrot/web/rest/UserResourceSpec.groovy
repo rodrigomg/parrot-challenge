@@ -43,4 +43,44 @@ class UserResourceSpec extends Specification{
     response.status().code == HttpStatus.CREATED.code
     userDTO.id
   }
+
+  void "Should get one user"() {
+    when: 'Get a user by id'
+    log.info("User to share ${userDTO.toString()}")
+    UserDTO userDTOFromEndPoint = client.toBlocking().retrieve(HttpRequest.GET("/api/users/${userDTO.id}"), UserDTO.class)
+
+    then:"return user by id"
+    log.info("-----------------------------")
+    log.info("User from endpont: ${userDTOFromEndPoint.toString()}")
+    log.info("-----------------------------")
+    userDTOFromEndPoint.id == userDTO.id
+    userDTOFromEndPoint.firstName == userDTO.firstName
+  }
+
+  void "Should update a user"() {
+    when:
+    userDTO.lastName = "Bodoque"
+    HttpResponse<UserDTO> response = client.toBlocking().exchange(HttpRequest.PUT("/api/users/", userDTO),UserDTO.class)
+    UserDTO userUpdatedDTO = response.body()
+
+    then:
+    log.info("-----------------------------")
+    log.info("${response.dump()}")
+    log.info("User updated: ${userUpdatedDTO.dump()}")
+    log.info("-----------------------------")
+    response.status().code == HttpStatus.OK.code
+    userUpdatedDTO.lastName == "Bodoque"
+  }
+
+  void "Should delete an user"() {
+    when:
+    HttpResponse<UserDTO> response = client.toBlocking().exchange(HttpRequest.DELETE("/api/users/${userDTO.id}"),UserDTO.class)
+
+    then:
+    log.info("-----------------------------")
+    log.info("${response.dump()}")
+    log.info("-----------------------------")
+    response.status().code == HttpStatus.NO_CONTENT.code
+  }
+
 }
