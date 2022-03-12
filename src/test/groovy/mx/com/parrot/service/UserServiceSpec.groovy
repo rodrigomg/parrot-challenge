@@ -10,7 +10,7 @@ import spock.lang.Shared
 import jakarta.inject.Inject
 
 @Slf4j
-@MicronautTest
+@MicronautTest(rollback = false)
 class UserServiceSpec extends Specification{
 
   @Inject
@@ -39,6 +39,14 @@ class UserServiceSpec extends Specification{
 
   }
 
+  void "Should get one user"() {
+    when:
+    UserDTO userFromRepo = userService.findOne(userDTO.id).get()
 
+    then:
+    log.info("User: ${userFromRepo.toString()}")
+    userFromRepo.id
+    userFromRepo.email == "rockdrigo.mtz@gmail.com"
+  }
 
 }
