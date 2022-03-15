@@ -62,3 +62,6 @@ CREATE TABLE order_details (
     FOREIGN KEY(product_id)
       REFERENCES products(id)
 );
+
+insert into users (id,email,first_name,last_name)
+values (1,'rockdrigo.mtz@gmail.com','Rodrigo','Martinez Garcia');
