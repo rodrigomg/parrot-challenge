@@ -57,7 +57,7 @@ class UserRepositorySpec extends Specification{
     then:
     log.info("Users: ${users.dump()}")
     user.id
-    users.size() == 1
+    users.size() == 2
   }
 
   void "Should update an user"() {

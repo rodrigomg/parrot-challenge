@@ -64,4 +64,4 @@ CREATE TABLE order_details (
 );
 
 insert into users (id,email,first_name,last_name)
-values (1,'rockdrigo.mtz@gmail.com','Rodrigo','Martinez Garcia');
+values (1,'roger.mtz@gmail.com','Rodrigo','Martinez Garcia');

@@ -35,7 +35,7 @@ class OrderRepositorySpec extends Specification{
     then:
     log.info("Order: ${order.toString()}")
     order.id
-    order.user.email == "rockdrigo.mtz@gmail.com"
+    order.user.email == "roger.mtz@gmail.com"
   }
 
   void "Should get one order"() {
@@ -45,7 +45,7 @@ class OrderRepositorySpec extends Specification{
     then:
     log.info("Order: ${orderFromRepo.toString()}")
     orderFromRepo.id
-    orderFromRepo.user.email == "rockdrigo.mtz@gmail.com"
+    orderFromRepo.user.email == "roger.mtz@gmail.com"
   }
 
   void "Should get all producs"() {
