@@ -43,14 +43,14 @@ class OrderServiceSpec extends Specification{
 
   }
 
-  /*void "Should get one order"() {
+  void "Should get one order"() {
     when:
     OrderDTO orderFromRepo = orderService.findOne(orderDTO.id).get()
 
     then:
     log.info("User: ${orderFromRepo.toString()}")
     orderFromRepo.id
-    orderFromRepo.user.email == "rockdrigo.mtz@gmail.com"
-  }*/
+    orderFromRepo.userDTO.email == "roger.mtz@gmail.com"
+  }
 
 }
