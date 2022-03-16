@@ -24,14 +24,14 @@ class OrderMapper implements EntityMapper<OrderDTO,Order>{
 	Optional<Order> toEntity(OrderDTO dto){
 		Order entity = new Order()
 		entity.id = dto.id
-		entity.user = userMapper.toEntity(dto.name).get
+		entity.user = userMapper.toEntity(dto.userDTO).get()
 		Optional.of(entity)
 	}
 
 	Optional<OrderDTO> toDto(Order entity){
 		OrderDTO dto = new OrderDTO()
 		dto.id = entity.id
-		dto.user = userMapper.toDto(entity.user).get()
+		dto.userDTO = userMapper.toDto(entity.user).get()
 		Optional.of(dto)
 	}
 
@@ -40,7 +40,7 @@ class OrderMapper implements EntityMapper<OrderDTO,Order>{
 		dtoList.collect { dto ->
 			Order entity = new Order()
 			entity.id = dto.id
-		  entity.user = userMapper.toEntity(dto.name).get
+		  entity.user = userMapper.toEntity(dto.userDTO).get()
 			entityList.add(entity)
 		}
 		Page.of(entityList, Pageable.unpaged(),entityList.size())
@@ -51,7 +51,7 @@ class OrderMapper implements EntityMapper<OrderDTO,Order>{
 		entityList.collect{entity ->
 			OrderDTO dto = new OrderDTO()
 			dto.id = entity.id
-		  dto.user = userMapper.toDto(entity.user).get()
+		  dto.userDTO = userMapper.toDto(entity.user).get()
 			dtoList.add(dto)
 		}
 		Page.of(dtoList, Pageable.unpaged(),dtoList.size())
