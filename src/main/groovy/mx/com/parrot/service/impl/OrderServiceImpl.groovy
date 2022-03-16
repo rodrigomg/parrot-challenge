@@ -38,9 +38,7 @@ class OrderServiceImpl implements OrderService{
   OrderDTO save(OrderDTO orderDTO) {
     log.info("Request to save a Order : ${orderDTO}")
     Order order = orderRepository.mergeAndSave(orderMapper.toEntity(orderDTO).get())
-    //log.info("Order persisted: ${order.toString()}")
-    //orderMapper.toDto(order).get()
-   orderMapper.toDto(orderRepository.mergeAndSave(orderMapper.toEntity(orderDTO).get())).get()
+    orderMapper.toDto(orderRepository.mergeAndSave(orderMapper.toEntity(orderDTO).get())).get()
   }
 
   /**
