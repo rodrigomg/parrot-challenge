@@ -1,6 +1,6 @@
 package mx.com.parrot.service.dto
 
-import mx.com.parrot.domain.User
+import mx.com.parrot.service.dto.UserDTO
 import io.micronaut.core.annotation.Introspected
 
 import groovy.transform.EqualsAndHashCode
@@ -14,5 +14,5 @@ import groovy.transform.ToString
 @ToString
 class OrderDTO implements Serializable{
   Long id
-  User user
+  UserDTO userDTO
 }
