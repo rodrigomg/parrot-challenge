@@ -65,3 +65,27 @@ CREATE TABLE order_details (
 
 insert into users (id,email,first_name,last_name)
 values (1,'roger.mtz@gmail.com','Rodrigo','Martinez Garcia');
+
+insert into products (id,product,price,stock)
+values (1,'carne',50.00,10);
+
+insert into products (id,product,price,stock)
+values (2,'queso',20.00,5);
+
+insert into products (id,product,price,stock)
+values (3,'soda',8.00,15);
+
+insert into orders (id,user_id)
+values (1,1);
+
+insert into orders (id,user_id)
+values (2,1);
+
+insert into order_details (id,order_id,product_id)
+values (1,1,1);
+
+insert into order_details (id,order_id,product_id)
+values (2,2,2);
+
+insert into order_details (id,order_id,product_id)
+values (3,2,3);
