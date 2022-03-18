@@ -62,6 +62,7 @@ CREATE TABLE order_details (
     FOREIGN KEY(product_id)
       REFERENCES products(id)
 );
+ALTER SEQUENCE order_details_id_seq restart with 7;
 
 insert into users (id,email,first_name,last_name)
 values (1,'roger.mtz@gmail.com','Rodrigo','Martinez Garcia');
