@@ -53,7 +53,12 @@ class OrderRepositorySpec extends Specification{
     List<Order> orders = orderRepository.findAll(Pageable.from(0,10)).getContent()
 
     then:
-    log.info("Orders: ${orders.dump()}")
+    orders.collect { order ->
+      log.info("Order: ${order.toString()}")
+      order.orderDetails.collect { detail ->
+        log.info("Detail: ${detail.toString()}")
+      }
+    }
     orders.size() == 3
   }
 
