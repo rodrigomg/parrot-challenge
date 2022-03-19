@@ -17,6 +17,9 @@ class Order implements Serializable{
   @JoinColumn(name = "user_id")
   User user
 
+  @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL)
+  Set<OrderDetail> orderDetails = new HashSet<>()
+
   @Override
   String toString(){
     """

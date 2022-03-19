@@ -54,7 +54,7 @@ class OrderRepositorySpec extends Specification{
 
     then:
     log.info("Orders: ${orders.dump()}")
-    orders.size() == 1
+    orders.size() == 3
   }
 
   void "Should delete an order"() {

@@ -54,7 +54,7 @@ class ProductRepositorySpec extends Specification{
 
     then:
     log.info("Products: ${products.dump()}")
-    products.size() == 1
+    products.size() == 4
   }
 
   void "Should update a product"() {
