@@ -13,6 +13,6 @@ import groovy.transform.ToString
 @ToString
 class OrderDetailDTO implements Serializable{
   Long id
-  OrderDTO orderDTO
+  Long orderId
   ProductDTO productDTO
 }
