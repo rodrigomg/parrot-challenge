@@ -15,4 +15,5 @@ import groovy.transform.ToString
 class OrderDTO implements Serializable{
   Long id
   UserDTO userDTO
+  OrderDetailDTO orderDetailDTO
 }
