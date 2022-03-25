@@ -23,13 +23,13 @@ class OrderDetailMapper implements EntityMapper<OrderDetailDTO,OrderDetail>{
 
   @Inject
   ProductMapper productMapper
-  @Inject
-  OrderMapper orderMapper
 
 	Optional<OrderDetail> toEntity(OrderDetailDTO dto){
 		OrderDetail entity = new OrderDetail()
+    Order order = new Order()
+    entity.order = order
 		entity.id = dto.id
-    entity.order = orderMapper.toEntity(dto.orderDTO).get()
+    entity.order.id = dto.orderId
     entity.product = productMapper.toEntity(dto.productDTO).get()
 		Optional.of(entity)
 	}
@@ -37,7 +37,7 @@ class OrderDetailMapper implements EntityMapper<OrderDetailDTO,OrderDetail>{
 	Optional<OrderDetailDTO> toDto(OrderDetail entity){
 		OrderDetailDTO dto = new OrderDetailDTO()
 		dto.id = entity.id
-    dto.orderDTO = orderMapper.toDto(entity.order).get()
+    dto.orderId = entity.order.id
     dto.productDTO = productMapper.toDto(entity.product).get()
 		Optional.of(dto)
 	}
@@ -46,8 +46,10 @@ class OrderDetailMapper implements EntityMapper<OrderDetailDTO,OrderDetail>{
 		List<OrderDetail> entityList = new ArrayList<OrderDetail>()
 		dtoList.collect { dto ->
 			OrderDetail entity = new OrderDetail()
+      Order order = new Order()
+      entity.order = order
 		  entity.id = dto.id
-      entity.order = orderMapper.toEntity(dto.orderDTO).get()
+      entity.order.id = dto.orderId
       entity.product = productMapper.toEntity(dto.productDTO).get()
 			entityList.add(entity)
 		}
@@ -59,7 +61,7 @@ class OrderDetailMapper implements EntityMapper<OrderDetailDTO,OrderDetail>{
 		entityList.collect{entity ->
 			OrderDetailDTO dto = new OrderDetailDTO()
 		  dto.id = entity.id
-      dto.orderDTO = orderMapper.toDto(entity.order).get()
+      dto.orderId = entity.order.id
       dto.productDTO = productMapper.toDto(entity.product).get()
 			dtoList.add(dto)
 		}
