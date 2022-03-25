@@ -37,7 +37,6 @@ class OrderDetailServiceImpl implements OrderDetailService{
   @Override
   OrderDetailDTO save(OrderDetailDTO orderDTO) {
     log.info("Request to save a OrderDetail : ${orderDTO}")
-    OrderDetail order = orderDetailRepository.mergeAndSave(orderDetailMapper.toEntity(orderDTO).get())
     orderDetailMapper.toDto(orderDetailRepository.mergeAndSave(orderDetailMapper.toEntity(orderDTO).get())).get()
   }
 
