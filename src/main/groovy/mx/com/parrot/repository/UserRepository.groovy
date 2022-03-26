@@ -22,4 +22,10 @@ abstract class UserRepository implements JpaRepository<User, Long> {
     save(user)
   }
 
+  @Transactional
+  User findByEmail(String email){
+    entityManager.createQuery("FROM User AS user WHERE user.email = :email", User)
+    .setParameter("email", email).getSingleResult()
+  }
+
 }

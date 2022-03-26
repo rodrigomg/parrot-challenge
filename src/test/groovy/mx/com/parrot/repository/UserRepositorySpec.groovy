@@ -79,4 +79,13 @@ class UserRepositorySpec extends Specification{
     !userRepository.findById(user.id).isPresent()
   }
 
+  void "Should get one user by email"() {
+    when:
+    User userFromRepo = userRepository.findByEmail("roger.mtz@gmail.com")
+
+    then:
+    log.info("User: ${userFromRepo.toString()}")
+    userFromRepo.id
+    userFromRepo.email == "roger.mtz@gmail.com"
+  }
 }
