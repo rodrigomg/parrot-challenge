@@ -48,6 +48,16 @@ class ProductRepositorySpec extends Specification{
     productFromRepo.name == "Ferrari"
   }
 
+  void "Should get one product by name"() {
+    when:
+    Product productFromRepo = productRepository.findByName("Ferrari")
+
+    then:
+    log.info("Product by name: ${productFromRepo.toString()}")
+    productFromRepo.id
+    productFromRepo.name == "Ferrari"
+  }
+
   void "Should get all producs"() {
     when:
     List<Product> products = productRepository.findAll(Pageable.from(0,10)).getContent()

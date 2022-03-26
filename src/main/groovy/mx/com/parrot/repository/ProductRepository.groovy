@@ -19,4 +19,10 @@ abstract class ProductRepository implements JpaRepository<Product, Long>{
     product = entityManager.merge(product)
     save(product)
   }
+
+  @Transactional
+  Product findByName(String name){
+    entityManager.createQuery("FROM Product AS product WHERE product.name = :name", Product)
+    .setParameter("name", name).getSingleResult()
+  }
 }
