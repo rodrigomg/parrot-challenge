@@ -29,7 +29,7 @@ class OrderDetailServiceSpec extends Specification{
     orderDetailDTO = new OrderDetailDTO()
   }
 
-  void "should create a new order detail"() {
+  void "Should create a new order detail"() {
     when:
     orderDetailDTO.orderId = orderService.findOne(1L).get().id
     orderDetailDTO.productDTO = productService.findOne(1L).get()
