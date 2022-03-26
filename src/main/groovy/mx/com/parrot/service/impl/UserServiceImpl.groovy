@@ -70,6 +70,20 @@ class UserServiceImpl implements UserService{
   }
 
   /**
+   * Get one user by email.
+   *
+   * @param email the id of the entity.
+   * @return the entity.
+   */
+  @Override
+  @ReadOnly
+  Optional<UserDTO> findByEmail(String email) {
+    log.info("Request to get User by email: ${email}")
+    User user = userRepository.findByEmail(email)
+    userMapper.toDto(user)
+  }
+
+  /**
    * Delete the user by id.
    *
    * @param id the id of the entity.

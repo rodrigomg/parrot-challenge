@@ -49,4 +49,13 @@ class UserServiceSpec extends Specification{
     userFromRepo.email == "rockdrigo.mtz@gmail.com"
   }
 
+  void "Should get one user by email"() {
+    when:
+    UserDTO userFromRepo = userService.findByEmail("rockdrigo.mtz@gmail.com").get()
+
+    then:
+    log.info("User by email: ${userFromRepo.toString()}")
+    userFromRepo.id
+    userFromRepo.email == "rockdrigo.mtz@gmail.com"
+  }
 }

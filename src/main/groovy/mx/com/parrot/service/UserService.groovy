@@ -36,6 +36,14 @@ interface UserService{
   Optional<UserDTO> findOne(Long id)
 
   /**
+   * Get the "email" user.
+   *
+   * @param email the id of the entity.
+   * @return the entity.
+   */
+  Optional<UserDTO> findByEmail(String email)
+
+  /**
    * Delete the "id" user.
    *
    * @param id the id of the entity.
