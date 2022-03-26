@@ -14,7 +14,7 @@ import mx.com.parrot.service.dto.OrderDetailDTO
 import mx.com.parrot.domain.OrderDetail
 
 /**
- * Mapper for the entity {@link Order} and its DTO {@link OrderDTO}.
+ * Mapper for the entity {@link OrderDetail} and its DTO {@link OrderDetailDTO}.
  */
 
 @Slf4j
@@ -67,4 +67,5 @@ class OrderDetailMapper implements EntityMapper<OrderDetailDTO,OrderDetail>{
 		}
 		Page.of(dtoList, Pageable.unpaged(),dtoList.size())
 	}
+
 }

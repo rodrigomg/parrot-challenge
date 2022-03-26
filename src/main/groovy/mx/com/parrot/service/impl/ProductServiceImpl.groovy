@@ -31,7 +31,7 @@ class ProductServiceImpl implements ProductService{
   /**
    * Save a product.
    *
-   * @param product the entity to save.
+   * @param productDTO the entity to save.
    * @return the persisted entity.
    */
   @Override

@@ -61,5 +61,4 @@ class UserMapper implements EntityMapper<UserDTO,User>{
 		Page.of(dtoList, Pageable.unpaged(),dtoList.size())
 	}
 
-
 }

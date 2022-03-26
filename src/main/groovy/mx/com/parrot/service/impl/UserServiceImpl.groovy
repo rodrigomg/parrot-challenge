@@ -31,7 +31,7 @@ class UserServiceImpl implements UserService{
   /**
    * Save a user.
    *
-   * @param user the entity to save.
+   * @param userDTO the entity to save.
    * @return the persisted entity.
    */
   @Override

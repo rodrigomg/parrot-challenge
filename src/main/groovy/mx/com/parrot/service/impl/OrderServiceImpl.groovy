@@ -31,7 +31,7 @@ class OrderServiceImpl implements OrderService{
   /**
    * Save a order.
    *
-   * @param order the entity to save.
+   * @param orderDTO the entity to save.
    * @return the persisted entity.
    */
   @Override

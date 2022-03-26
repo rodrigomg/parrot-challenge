@@ -61,5 +61,4 @@ class ProductMapper implements EntityMapper<ProductDTO,Product>{
 		Page.of(dtoList, Pageable.unpaged(),dtoList.size())
 	}
 
-
 }
