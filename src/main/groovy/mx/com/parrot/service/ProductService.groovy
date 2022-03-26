@@ -35,6 +35,14 @@ interface ProductService{
   Optional<ProductDTO> findOne(Long id)
 
   /**
+   * Get the "name" product.
+   *
+   * @param name the id of the entity.
+   * @return the entity.
+   */
+  Optional<ProductDTO> findByName(String name)
+
+  /**
    * Delete the "id" product.
    *
    * @param id the id of the entity.

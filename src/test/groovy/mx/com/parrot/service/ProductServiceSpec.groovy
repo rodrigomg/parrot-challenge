@@ -49,4 +49,13 @@ class ProductServiceSpec extends Specification{
     productFromRepo.name == "Lamborghini"
   }
 
+  void "Should get one product by name"() {
+    when:
+    ProductDTO productFromRepo = productService.findByName("Lamborghini").get()
+
+    then:
+    log.info("Product from name: ${productFromRepo.toString()}")
+    productFromRepo.id
+    productFromRepo.name == "Lamborghini"
+  }
 }

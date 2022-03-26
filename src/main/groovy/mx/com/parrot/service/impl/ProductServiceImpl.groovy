@@ -70,6 +70,20 @@ class ProductServiceImpl implements ProductService{
   }
 
   /**
+   * Get one product by name.
+   *
+   * @param name the name of the entity.
+   * @return the entity.
+   */
+  @Override
+  @ReadOnly
+  Optional<ProductDTO> findByName(String name) {
+    log.info("Request to get Product with name: ${name}")
+    Product product = productRepository.findByName(name)
+    productMapper.toDto(product)
+  }
+
+  /**
    * Delete the product by id.
    *
    * @param id the id of the entity.
