@@ -53,4 +53,15 @@ class OrderServiceSpec extends Specification{
     orderFromRepo.userDTO.email == "roger.mtz@gmail.com"
   }
 
+  void "Should get order id 2"() {
+    when:
+    OrderDTO orderFromRepo = orderService.findOne(2L).get()
+
+    then:
+    log.info("Order: ${orderFromRepo.dump()}")
+    orderFromRepo.id
+    orderFromRepo.userDTO.email == "roger.mtz@gmail.com"
+    orderFromRepo.orderDetailsDTO.size() == 2
+  }
+
 }

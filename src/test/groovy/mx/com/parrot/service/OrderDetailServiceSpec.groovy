@@ -41,7 +41,6 @@ class OrderDetailServiceSpec extends Specification{
     orderDetailDTO.productDTO.name == "carne"
   }
 
-  @Ignore
   void "Should get one order detail"() {
     when:
     OrderDetailDTO orderDetailFromRepo = orderDetailService.findOne(orderDetailDTO.id).get()
