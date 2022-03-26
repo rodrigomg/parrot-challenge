@@ -25,7 +25,7 @@ class ProductServiceSpec extends Specification{
     productDTO = new ProductDTO()
   }
 
-  void "should create a new user"() {
+  void "should create a new product"() {
     when:
     productDTO.name = "Lamborghini"
     productDTO.price = 200.00
@@ -39,12 +39,12 @@ class ProductServiceSpec extends Specification{
 
   }
 
-  void "Should get one user"() {
+  void "Should get one product"() {
     when:
     ProductDTO productFromRepo = productService.findOne(productDTO.id).get()
 
     then:
-    log.info("User: ${productFromRepo.toString()}")
+    log.info("Product: ${productFromRepo.toString()}")
     productFromRepo.id
     productFromRepo.name == "Lamborghini"
   }
