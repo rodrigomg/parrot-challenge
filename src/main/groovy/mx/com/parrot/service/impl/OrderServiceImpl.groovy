@@ -53,6 +53,7 @@ class OrderServiceImpl implements OrderService{
    * @return the persisted entity.
    */
   @Override
+  @Transactional
   OrderDTO save(OrderDTO orderDTO) {
     log.info("Request to save a Order : ${orderDTO}")
     Optional<UserDTO> userDTO = userService.findByEmail(orderDTO.userDTO.email)
@@ -60,6 +61,7 @@ class OrderServiceImpl implements OrderService{
     Set<OrderDetailDTO> orderDetailsDTO = orderDTO.orderDetailsDTO
     orderDTO.orderDetailsDTO = []
     Order order = orderRepository.mergeAndSave(orderMapper.toEntity(orderDTO).get())
+    orderDTO.id = order.id
     orderDetailsDTO.collect { orderDetail ->
       orderDetail.orderId = order.id
       Optional<ProductDTO> oProductDTO = productService.findByName(orderDetail.productDTO.name)
@@ -70,10 +72,10 @@ class OrderServiceImpl implements OrderService{
         orderDetail.productDTO = productService.save(orderDetail.productDTO)
       }
 
+      orderDetail.id = orderDetailService.save(orderDetail).id
     }
     orderDTO.orderDetailsDTO = orderDetailsDTO
-    log.info("Order DTO: ${orderDTO.dump()}")
-    orderMapper.toDto(order).get()
+    orderDTO
   }
 
   /**

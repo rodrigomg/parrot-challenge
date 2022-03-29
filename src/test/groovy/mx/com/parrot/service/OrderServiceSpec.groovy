@@ -53,13 +53,13 @@ class OrderServiceSpec extends Specification{
     orderDetailDTO.productDTO = productDTO
     orderDTO.orderDetailsDTO = orderDetailsDTO
     orderDetailsDTO.add(orderDetailDTO)
-    log.info("******** Order DTO to save: ${orderDTO.dump()}")
     orderDTO = orderService.save(orderDTO)
 
     then:
     log.info("orderDTO: ${orderDTO.toString()}")
     orderDTO.id
     orderDTO.userDTO.email == "roger.mtz@gmail.com"
+    orderDTO.orderDetailsDTO.size() == 3
   }
 
   @Ignore
