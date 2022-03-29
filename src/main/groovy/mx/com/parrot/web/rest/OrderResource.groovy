@@ -48,6 +48,9 @@ class OrderResource{
       throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists")
     }
     OrderDTO result = orderService.save(orderDTO)
+    if(!result.userDTO){
+      throw new BadRequestAlertException("Validate data", ENTITY_NAME, "usernotexist")
+    }
     URI location = new URI("/api/orders/${result.id}")
     HttpResponse.created(result).headers(headers -> {
       headers.location(location)

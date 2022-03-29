@@ -1,11 +1,18 @@
 package mx.com.parrot.service.impl
 
 import mx.com.parrot.service.dto.OrderDTO
+import mx.com.parrot.service.dto.UserDTO
+import mx.com.parrot.service.dto.ProductDTO
+import mx.com.parrot.service.dto.OrderDetailDTO
 import mx.com.parrot.domain.Order
 import mx.com.parrot.service.mapper.OrderMapper
+import mx.com.parrot.service.mapper.ProductMapper
 import groovy.util.logging.Slf4j
 import mx.com.parrot.repository.OrderRepository
 import mx.com.parrot.service.OrderService
+import mx.com.parrot.service.UserService
+import mx.com.parrot.service.ProductService
+import mx.com.parrot.service.OrderDetailService
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
 import io.micronaut.transaction.annotation.ReadOnly
@@ -14,6 +21,9 @@ import jakarta.inject.Singleton
 import jakarta.inject.Inject
 import javax.transaction.Transactional
 import java.util.Optional
+import java.util.HashSet
+import mx.com.parrot.service.dto.OrderDetailDTO
+import mx.com.parrot.domain.Product
 
 /**
  * Service Implementation for managing {@link Order}.
@@ -26,8 +36,16 @@ class OrderServiceImpl implements OrderService{
   @Inject
   OrderRepository orderRepository
   @Inject
-  OrderMapper orderMapper
+  UserService userService
+  @Inject
+  ProductService productService
+  @Inject
+  OrderDetailService orderDetailService
 
+  @Inject
+  OrderMapper orderMapper
+  @Inject
+  ProductMapper productMapper
   /**
    * Save a order.
    *
@@ -37,8 +55,25 @@ class OrderServiceImpl implements OrderService{
   @Override
   OrderDTO save(OrderDTO orderDTO) {
     log.info("Request to save a Order : ${orderDTO}")
+    Optional<UserDTO> userDTO = userService.findByEmail(orderDTO.userDTO.email)
+    orderDTO.userDTO = userDTO.get()
+    Set<OrderDetailDTO> orderDetailsDTO = orderDTO.orderDetailsDTO
+    orderDTO.orderDetailsDTO = []
     Order order = orderRepository.mergeAndSave(orderMapper.toEntity(orderDTO).get())
-    orderMapper.toDto(orderRepository.mergeAndSave(orderMapper.toEntity(orderDTO).get())).get()
+    orderDetailsDTO.collect { orderDetail ->
+      orderDetail.orderId = order.id
+      Optional<ProductDTO> oProductDTO = productService.findByName(orderDetail.productDTO.name)
+
+      if(oProductDTO.isPresent() && oProductDTO.get().id){
+        orderDetail.productDTO = oProductDTO.get()
+      }else{
+        orderDetail.productDTO = productService.save(orderDetail.productDTO)
+      }
+
+    }
+    orderDTO.orderDetailsDTO = orderDetailsDTO
+    log.info("Order DTO: ${orderDTO.dump()}")
+    orderMapper.toDto(order).get()
   }
 
   /**
