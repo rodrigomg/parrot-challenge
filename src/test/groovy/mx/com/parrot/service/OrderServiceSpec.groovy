@@ -18,7 +18,7 @@ import mx.com.parrot.service.dto.ProductDTO
 import java.lang.Long
 
 @Slf4j
-@MicronautTest(rollback = true)
+@MicronautTest(rollback = false)
 class OrderServiceSpec extends Specification{
 
   @Inject
@@ -62,18 +62,16 @@ class OrderServiceSpec extends Specification{
     orderDTO.orderDetailsDTO.size() == 3
   }
 
-  @Ignore
   void "Should get one order"() {
     when:
     OrderDTO orderFromRepo = orderService.findOne(orderDTO.id).get()
 
     then:
-    log.info("User: ${orderFromRepo.toString()}")
+    log.info("Order DTO from repo: ${orderFromRepo.toString()}")
     orderFromRepo.id
     orderFromRepo.userDTO.email == "roger.mtz@gmail.com"
   }
 
-  @Ignore
   void "Should get order id 2"() {
     when:
     OrderDTO orderFromRepo = orderService.findOne(2L).get()
