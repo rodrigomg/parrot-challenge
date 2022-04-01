@@ -20,10 +20,17 @@ import java.util.List
 import java.util.Optional
 import jakarta.inject.Inject
 import groovy.util.logging.Slf4j
+import io.swagger.v3.oas.annotations.tags.Tag
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 /**
  * REST controller for managing {@link mx.com.parrot.domain.User}.
  */
+@Tag(name = "Users")
 @Slf4j
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/api")
@@ -45,6 +52,10 @@ class UserResource{
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
   @Post("/users")
+	@Operation(summary = "Create an user")
+  @ApiResponse(
+          responseCode = "200", description = "User created",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserDTO.class))))
   HttpResponse<UserDTO> createUser(@Body UserDTO userDTO) throws URISyntaxException {
     log.debug("REST request to save User : ${userDTO}")
     if (userDTO.getId() != null) {
@@ -68,6 +79,10 @@ class UserResource{
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
   @Put("/users")
+	@Operation(summary = "Update an user")
+  @ApiResponse(
+          responseCode = "200", description = "User updated",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserDTO.class))))
   HttpResponse<UserDTO> updateUser(@Body UserDTO userDTO) throws URISyntaxException {
     log.debug("REST request to update User : ${userDTO}")
     if (userDTO.id == null) {
@@ -85,6 +100,10 @@ class UserResource{
    * @return the {@link HttpResponse} with status {@code 200 (OK)} and the list of users in body.
    */
   @Get("/users")
+	@Operation(summary = "Get all users")
+  @ApiResponse(
+          responseCode = "200", description = "Get sucess",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserDTO.class))))
   HttpResponse<List<UserDTO>> getAllUsers(HttpRequest request, Pageable pageable) {
     log.debug("REST request to get a page of Users")
     Page<UserDTO> page = userService.findAll(pageable)
@@ -99,6 +118,10 @@ class UserResource{
    * @return the {@link HttpResponse} with status {@code 200 (OK)} and with body the userDTO, or with status {@code 404 (Not Found)}.
    */
   @Get("/users/{id}")
+	@Operation(summary = "Get one user by id")
+	@ApiResponse(
+          responseCode = "200", description = "Get one user sucess",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserDTO.class))))
   Optional<UserDTO> getUser(@PathVariable Long id) {
     log.debug("REST request to get User : ${id}")
     userService.findOne(id)
@@ -111,6 +134,10 @@ class UserResource{
    * @return the {@link HttpResponse} with status {@code 204 (NO_CONTENT)}.
    */
   @Delete("/users/{id}")
+	@Operation(summary = "Delete one user by id")
+	@ApiResponse(
+          responseCode = "200", description = "User deleted",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserDTO.class))))
   HttpResponse deleteUser(@PathVariable Long id) {
     log.debug("REST request to delete User : ${id}")
     userService.delete(id)

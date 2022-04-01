@@ -20,11 +20,18 @@ import java.util.List
 import java.util.Optional
 import jakarta.inject.Inject
 import groovy.util.logging.Slf4j
+import io.swagger.v3.oas.annotations.tags.Tag
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.ArraySchema
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 
 /**
  * REST controller for managing {@link mx.com.parrot.domain.User}.
  */
 
+@Tag(name = "Orders")
 @Slf4j
 @Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/api")
@@ -45,6 +52,10 @@ class OrderResource{
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
   @Post("/orders")
+	@Operation(summary = "Create an order")
+  @ApiResponse(
+          responseCode = "200", description = "Order created",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class))))
   HttpResponse<OrderDTO> createUser(@Body OrderDTO orderDTO) throws URISyntaxException {
     log.debug("REST request to save User : ${orderDTO}")
     if (orderDTO.getId() != null) {
@@ -71,6 +82,10 @@ class OrderResource{
    * @throws URISyntaxException if the Location URI syntax is incorrect.
    */
   @Put("/orders")
+	@Operation(summary = "Update an order")
+  @ApiResponse(
+          responseCode = "200", description = "Order updated",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class))))
   HttpResponse<OrderDTO> updateUser(@Body OrderDTO orderDTO) throws URISyntaxException {
     log.debug("REST request to update User : ${orderDTO}")
     if (orderDTO.id == null) {
@@ -88,6 +103,10 @@ class OrderResource{
    * @return the {@link HttpResponse} with status {@code 200 (OK)} and the list of orders in body.
    */
   @Get("/orders")
+	@Operation(summary = "Get all orders")
+  @ApiResponse(
+          responseCode = "200", description = "Get sucess",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class))))
   HttpResponse<List<OrderDTO>> getAllUsers(HttpRequest request, Pageable pageable) {
     log.debug("REST request to get a page of Users")
     Page<OrderDTO> page = orderService.findAll(pageable)
@@ -102,6 +121,10 @@ class OrderResource{
    * @return the {@link HttpResponse} with status {@code 200 (OK)} and with body the orderDTO, or with status {@code 404 (Not Found)}.
    */
   @Get("/orders/{id}")
+	@Operation(summary = "Get an order by id")
+  @ApiResponse(
+          responseCode = "200", description = "Get sucess",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class))))
   Optional<OrderDTO> getUser(@PathVariable Long id) {
     log.debug("REST request to get User : ${id}")
     orderService.findOne(id)
@@ -114,6 +137,10 @@ class OrderResource{
    * @return the {@link HttpResponse} with status {@code 204 (NO_CONTENT)}.
    */
   @Delete("/orders/{id}")
+	@Operation(summary = "Delete an order by id")
+  @ApiResponse(
+          responseCode = "200", description = "Order deleted",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDTO.class))))
   HttpResponse deleteUser(@PathVariable Long id) {
     log.debug("REST request to delete User : ${id}")
     orderService.delete(id)
