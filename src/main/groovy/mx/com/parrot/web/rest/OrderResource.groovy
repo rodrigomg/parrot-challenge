@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 
 /**
  * REST controller for managing {@link mx.com.parrot.domain.User}.
@@ -35,6 +36,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 @Slf4j
 @Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/api")
+@SecurityRequirement(name = "basicAuth")
 class OrderResource{
 
   private static final String ENTITY_NAME = "order"
