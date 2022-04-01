@@ -46,7 +46,7 @@ class OrderResourceSpec extends Specification{
   void "Should create a new order"() {
     when: "Create a new order"
     HttpResponse<OrderDTO> response = client.toBlocking().exchange(HttpRequest.POST("/api/orders",
-    orderDTO),OrderDTO.class)
+    orderDTO).basicAuth("rock", "rock@1"),OrderDTO.class)
     orderDTO = response.body()
 
     then: "Validate http status code CREATED"
@@ -61,7 +61,8 @@ class OrderResourceSpec extends Specification{
   void "Should get one order"() {
     when: 'Get a order by id'
     log.info("Order to share ${orderDTO.toString()}")
-    OrderDTO orderDTOFromEndPoint = client.toBlocking().retrieve(HttpRequest.GET("/api/orders/${orderDTO.id}"), OrderDTO.class)
+    OrderDTO orderDTOFromEndPoint = client.toBlocking().retrieve(HttpRequest.GET("/api/orders/${orderDTO.id}").basicAuth("juan", "juan@2"),
+    OrderDTO.class)
 
     then:"return order by id"
     log.info("-----------------------------")

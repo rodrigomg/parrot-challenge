@@ -9,3 +9,10 @@ jpa:
     properties:
       hibernate:
         show_sql: true
+identity-store:
+  users:
+    rock: rock@1
+    juan: juan@2
+  roles:
+    rock: ROLE_ADMIN
+    juan: ROLE_VIEW

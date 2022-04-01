@@ -12,6 +12,8 @@ import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.uri.UriBuilder
 import io.micronaut.http.annotation.*
+import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import java.net.URI
 import java.net.URISyntaxException
 import java.util.List
@@ -23,6 +25,7 @@ import groovy.util.logging.Slf4j
  * REST controller for managing {@link mx.com.parrot.domain.User}.
  */
 @Slf4j
+@Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/api")
 class UserResource{
 
