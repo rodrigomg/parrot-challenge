@@ -1,6 +1,25 @@
 micronaut:
   application:
     name: challenge
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+  security:
+    enabled: true
+    # Session auth
+    authentication: session
+    session:
+      enabled: true
+    intercept-url-map:
+      - pattern: /swagger/**
+        access: isAnonymous()
+      - pattern: /swagger-ui/**
+        access: isAnonymous()
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/postgres
